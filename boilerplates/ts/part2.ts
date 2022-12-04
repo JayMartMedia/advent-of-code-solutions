@@ -6,6 +6,9 @@
  * Run with `npx ts-node ./part2.ts`
  */
 
- import input from './input'
+import setupUtils from './utils';
+setupUtils();
 
- console.log(input);
+import input from './input'
+
+console.log(input);
