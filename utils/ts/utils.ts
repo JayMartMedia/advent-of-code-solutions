@@ -66,6 +66,11 @@ declare global {
          * @returns an array of arrays
          */
         divide(this: Array<any>, numSections: number): any[][];
+        /**
+         * Returns an array of all the unique items in the array
+         * @returns an array of all the unique items in the array
+         */
+        uniq(): any[];
     }
 
     interface String {
@@ -95,6 +100,11 @@ declare global {
          *   if (numSections === 4) => ['te','st','in','g1']
          */
         divide(numSections: number): string[];
+        /**
+         * @experimental
+         * Returns the ascii code for the first char in string, may return an array in the future
+         */
+        ascii(): number;
     }
 }
 
@@ -159,6 +169,11 @@ export default function setupUtils(){
         return sections;
     }
 
+    Array.prototype.uniq = function (): any[] {
+        const set = new Set(this);
+        return Array.from(set);
+    }
+
     String.prototype.splitLines = function () {
         return this.split('\n');
     }
@@ -185,5 +200,10 @@ export default function setupUtils(){
             sections[Math.floor(i/sectionSize)] += this[i];
         }
         return sections;
+    }
+
+    String.prototype.ascii = function(): number {
+        if (this.length > 1) console.warn(`Warning: Only returning ascii code for first character of string: '${this}'`);
+        return this.charCodeAt(0);
     }
 }
