@@ -1,7 +1,7 @@
 /**
  * Run with `npx ts-node-dev --respawn ./part1.ts`
  */
- import setupUtils from '../../boilerplates/ts/utils';
+ import setupUtils from '../../utils/ts/utils';
  import input from './einput';
  setupUtils();
  
