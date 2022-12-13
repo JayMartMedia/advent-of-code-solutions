@@ -74,7 +74,10 @@ function visitNeighbors(row: number, col: number, distFromStart: number, path: s
     const newHeight = grid.getCell(row, col);
     const newPath = [...path, `${row},${col}`];
 
-    if((lastHeight === 'y') && newHeight === 'E'){
+    if((lastHeight === 'y' || lastHeight === 'z') && newHeight === 'E'){
+        if(possibleSolution[`${row},${col}`] && possibleSolution[`${row},${col}`].distFromStart < distFromStart){
+            return;
+        }
         possibleSolution[`${row},${col}`] = {
             distFromStart: distFromStart,
             path: newPath
