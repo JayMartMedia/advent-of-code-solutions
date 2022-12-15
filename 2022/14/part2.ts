@@ -22,6 +22,11 @@ for (let rockPathCoord of rockPathCoords) {
     }
 }
 
+// create infinite floor
+leftBorder = 500-(lastRockHeight+50);
+rightBorder = 500+(lastRockHeight+50);
+rockPathCoords.push([[leftBorder, lastRockHeight+2],[rightBorder, lastRockHeight+2]])
+
 // grid
 const EMPTY_CHAR = '.';
 const SAND_CHAR = 'O';
@@ -99,9 +104,9 @@ function dropSand(): boolean {
         // try to move down
         if (![ROCK_CHAR, SAND_CHAR].includes(getCell(sandPosition.col, sandPosition.row + 1))) {
             sandPosition.row = sandPosition.row + 1;
-            if (sandPosition.row > lastRockHeight) {
-                return true;
-            }
+            // if (sandPosition.row > lastRockHeight) {
+            //     return true;
+            // }
             // try to move down left
         } else if (![ROCK_CHAR, SAND_CHAR].includes(getCell(sandPosition.col - 1, sandPosition.row + 1))) {
             sandPosition.col = sandPosition.col - 1;
@@ -111,6 +116,9 @@ function dropSand(): boolean {
             sandPosition.col = sandPosition.col + 1;
             sandPosition.row = sandPosition.row + 1;
         } else {
+            if(getCell(sandPosition.col, sandPosition.row) === SAND_POUR_CHAR){
+                return true;
+            }
             canMove = false;
         }
     }
@@ -123,7 +131,7 @@ function dropSand(): boolean {
 // }
 
 function dropsUntilAbyss(): number {
-    let amountOfDrops = 0;
+    let amountOfDrops = 1;
     while (true) {
         if (dropSand()) return amountOfDrops;
         amountOfDrops += 1;
@@ -136,3 +144,5 @@ setCell(sandStart.col, sandStart.row, SAND_POUR_CHAR)
 const amountOfDrops = dropsUntilAbyss();
 printGrid();
 console.log(amountOfDrops);
+
+// 25247 is too low
