@@ -2,9 +2,10 @@ declare global {
     interface String {
         /**
          * Splits a string into lines on the '\n' character
+         * @param separator optional separator, defaults to '\n' if not provided
          * @returns an array of strings
          */
-        splitLines(): string[];
+        splitLines(separator: string): string[];
         /**
          * Returns the number value of the string, or NaN if the number cannot be cleanly converted
          * @returns number or NaN
@@ -35,8 +36,8 @@ declare global {
 }
 
 export default function setupStringExtensionUtils(){
-    String.prototype.splitLines = function () {
-        return this.split('\n');
+    String.prototype.splitLines = function (separator: string = '\n') {
+        return this.split(separator);
     }
 
     String.prototype.toNum = function () {
